@@ -1,4 +1,4 @@
-import { db } from "../db/firebase-config";
+import { db, db2, firebase } from "../db/firebase-config";
 import {
   collection,
   getDocs,
@@ -22,11 +22,14 @@ export const getComments = async () => {
   });
 };
 
-export const getComments2 = async () => {
-  db.collection("comments").onSnapshot((snapshot) => {
-    console.log(snapshot);
-  });
-};
+// export const getComments2 = async () => {
+
+//   set(ref(db, 'users/' + userId), {
+//     username: name,
+//     email: email,
+//     profile_picture : imageUrl
+//   });
+// }
 
 export const createComment = async (post) => {
   await addDoc(CommentCollectionRef, {

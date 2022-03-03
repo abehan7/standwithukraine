@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getComments } from "../../Api";
+import { getDate } from "../../Hooks/getDate";
 import Post from "./Post";
 const PostContainerEl = styled.div`
   flex: 1;
@@ -23,14 +24,20 @@ const PostContainer = () => {
   }, []);
   return (
     <PostContainerEl>
-      {posts.map((post, index) => (
-        <Post
-          msg={post?.message}
-          author={post?.author}
-          key={post?.id}
-          date={post?.date.seconds}
-        />
-      ))}
+      {posts.map((post, index) => {
+        const { day, month, date, year, time } = getDate(post);
+        const dateEl = `${day}  ${month}  ${date}  ${year}  ${time}`;
+
+        return (
+          <Post
+            msg={post?.message}
+            author={post?.author}
+            key={post?.id}
+            country={post?.country}
+            date={dateEl}
+          />
+        );
+      })}
     </PostContainerEl>
   );
 };

@@ -6,10 +6,9 @@ import Indicator from "../components/Indicator/Indicator";
 import PostContainer from "../components/Post/PostContainer";
 
 import Colors from "../assets/Colors";
-import NextComment from "../components/Comment/NextComment";
-import SendComment from "../components/Comment/SendComment";
+import Comment from "../components/Comment/Comment";
 
-import { getComments } from "../Api";
+import { createComment, getComments, getComments2 } from "../Api";
 const HomeEl = styled.div`
   display: flex;
 
@@ -54,61 +53,114 @@ const Home = () => {
   const [text, setText] = useState({
     message: "",
     author: "",
+    country: "",
   });
 
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
     const fn = async () => {
-      const data = await getComments();
-      console.log(data);
+      // await getComments2();
+      // console.log(data);
     };
+
+    // console.log(getUTC());
+    // console.log(new Date(getUTC()));
 
     fn();
   }, []);
 
-  const onChnageMessage = (e) => {
-    setText({ ...text, message: e.target.value });
+  const checkIsEmpty = ({ p, num, length, type }) => {
+    p === num && length !== 0 && setPage(page + 1);
+    p === num && length === 0 && alert(`Please ${type} a message`);
   };
 
-  const onChnageAuthor = (e) => {
-    setText({ ...text, author: e.target.value });
-  };
+  const handleClickNext = (p) => {
+    checkIsEmpty(1, text.message.length, "message");
+    checkIsEmpty(2, text.author.length, "author");
+    checkIsEmpty(3, text.country.length, "country");
 
-  const handleClickNext = () => {
-    setPage(2);
+    // p === 1 && text.message.length !== 0 && setPage(page + 1);
+    // p === 1 && text.message.length === 0 && alert("Please write a message");
+
+    // p === 2 && text.author.length !== 0 && setPage(page + 1);
+    // p === 2 && text.author.length === 0 && alert("Please write your name");
+
+    // p === 3 && text.country.length !== 0 && setPage(page + 1);
+    // p === 3 && text.country.length === 0 && alert("Please write your country");
   };
   const handleClickBack = () => {
-    setPage(1);
+    setPage(page - 1);
   };
 
-  const handleClickSend = () => {
-    handleClickBack();
+  const handleClickSend = async () => {
+    setPage(1);
+    console.log(text);
+    // const fn = () => {};
+    // (text.country.includes("from") || text.country.includes("From")) && fn();
+    await createComment(text);
     setText({
       message: "",
       author: "",
+      country: "",
     });
   };
-  const initialState = {
-    handleClickNext,
-    handleClickBack,
-    handleClickSend,
-    onChnageMessage,
-    onChnageAuthor,
-    text,
+
+  const onChange = (e) => {
+    setText({ ...text, [e.target.name]: e.target.value });
   };
+
   return (
-    <HomeContext.Provider value={initialState}>
-      <HomeEl>
-        <Title>
-          #STAND<SubTitle>WITH</SubTitle>UKRAINE
-        </Title>
-        <Indicator />
-        {page === 1 ? <NextComment /> : <SendComment />}
-        <PostContainer />
-        <Bottom />
-      </HomeEl>
-    </HomeContext.Provider>
+    <HomeEl>
+      <Title>
+        #STAND<SubTitle>WITH</SubTitle>UKRAINE
+      </Title>
+      <Indicator />
+      {page === 1 && (
+        <Comment
+          onClickBack={() => {}}
+          onClickForward={() => handleClickNext(1)}
+          onChange={onChange}
+          text={text.message}
+          placeholder="Write a comment..."
+          rightIconName="NEXT"
+          type="one"
+          name="message"
+          page={page}
+          index={`${page}/3`}
+        />
+      )}
+      {page === 2 && (
+        <Comment
+          onClickBack={handleClickBack}
+          onClickForward={() => handleClickNext(2)}
+          onChange={onChange}
+          text={text.author}
+          placeholder="Write your name..."
+          rightIconName="NEXT"
+          type="both"
+          name="author"
+          page={page}
+          index={`${page}/3`}
+        />
+      )}
+      {page === 3 && (
+        <Comment
+          onClickBack={handleClickBack}
+          onClickForward={() => handleClickSend(3)}
+          onChange={onChange}
+          text={text.country}
+          placeholder="From"
+          rightIconName="NEXT"
+          type="both"
+          name="country"
+          page={page}
+          index={`${page}/3`}
+        />
+      )}
+      <PostContainer />
+      <Bottom />
+    </HomeEl>
   );
 };
 

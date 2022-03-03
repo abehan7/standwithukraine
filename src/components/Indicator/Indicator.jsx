@@ -48,10 +48,7 @@ const BubbleIcon = styled(Icon)`
 `;
 
 const Indicator = () => {
-  const navigator = useNavigate();
-  const onClickBubble = () => {
-    // navigator("/writing");
-  };
+  const onClickBubble = () => {};
   return (
     <IndicatorEl>
       <ThumbIcon>

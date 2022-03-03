@@ -19,6 +19,7 @@ const MsgWrapper = styled.div`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow-wrap: break-word;
+  /* font-size: 1.1rem; */
 `;
 
 const Author = styled.span``;
@@ -28,12 +29,14 @@ const SubTitle = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-const Post = ({ msg, author, date = "Thu, 03 Mar 2022" }) => {
+const Post = ({ msg, author, date, country }) => {
   return (
     <PostEl>
       <MsgWrapper>{msg}</MsgWrapper>
       <SubTitle>
-        <Author>{author}</Author>
+        <Author>
+          {author} from {country}
+        </Author>
         <Date>{date}</Date>
       </SubTitle>
     </PostEl>
