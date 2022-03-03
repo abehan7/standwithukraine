@@ -43,28 +43,72 @@ const Icon = styled.span`
 `;
 const Comment = () => {
   const [text, setText] = useState({
+    value: "",
     message: "",
     author: "",
+    page: 1,
+    placeholder: "Write a comment...",
+    name: "message",
   });
+
   const onChange = (e) => {
     setText({
       ...text,
-      message: e.target.value,
+      [e.target.name]: e.target.value,
     });
+  };
+
+  const handleClickNext = () => {
+    text.page === 1 &&
+      setText({
+        ...text,
+        page: 2,
+        placeholder: "Write a name...",
+        name: "author",
+      });
+    text.page === 2 &&
+      setText({
+        message: "",
+        author: "",
+        page: 1,
+        placeholder: "Write a comment...",
+        name: "message",
+      });
   };
   return (
     <CommentEl>
       <CommentWrapper>
         <Message
           onChange={onChange}
-          value={text.message}
-          placeholder="#WriteForUkraine"
+          value={text.value}
+          placeholder={text.placeholder}
+          name={text.name}
         />
-        <IconWrapper>
-          <Icon>NEXT</Icon>
-        </IconWrapper>
+
+        {/* {text.page === 2 && (
+          <Message
+            onChange={onChange}
+            value={text.author}
+            placeholder={text.placeholder}
+            name={text.name}
+          />
+        )} */}
+        {text.page === 1 && (
+          <RightIcon onClick={handleClickNext} iconName="NEXT" />
+        )}
+        {text.page === 2 && (
+          <RightIcon onClick={handleClickNext} iconName="SEND" />
+        )}
       </CommentWrapper>
     </CommentEl>
+  );
+};
+
+const RightIcon = ({ onClick, iconName }) => {
+  return (
+    <IconWrapper onClick={onClick}>
+      <Icon>{iconName}</Icon>
+    </IconWrapper>
   );
 };
 
