@@ -7,7 +7,7 @@ import PostContainer from "../components/Post/PostContainer";
 
 import Colors from "../assets/Colors";
 import Comment from "../components/Comment/Comment";
-import { writeUserData } from "../Api";
+import { getNewMessage, writeUserData, getMessages } from "../Api";
 
 const HomeEl = styled.div`
   display: flex;
@@ -60,7 +60,9 @@ const Home = () => {
 
   useEffect(() => {
     const fn = async () => {
-      await writeUserData("name2", "email2", "imageUrl2");
+      // await writeUserData("name2", "email2", "imageUrl2");
+      // await getNewMessage();
+      await getMessages();
     };
 
     fn();
