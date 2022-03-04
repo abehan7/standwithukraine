@@ -8,7 +8,12 @@ import PostContainer from "../components/Post/PostContainer";
 import Colors from "../assets/Colors";
 import Comment from "../components/Comment/Comment";
 
-import { createComment, getComments, getComments2 } from "../Api";
+import {
+  createComment,
+  getComments,
+  getComments2,
+  writeUserData,
+} from "../Api";
 const HomeEl = styled.div`
   display: flex;
 
@@ -60,6 +65,7 @@ const Home = () => {
 
   useEffect(() => {
     const fn = async () => {
+      // await writeUserData();
       // await getComments2();
       // console.log(data);
     };

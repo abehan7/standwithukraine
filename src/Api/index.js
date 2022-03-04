@@ -22,12 +22,6 @@ export const getComments = async () => {
   });
 };
 
-export const getComments2 = async () => {
-  db.collection("comments").onSnapshot((snapshot) => {
-    console.log(snapshot);
-  });
-};
-
 export const createComment = async (post) => {
   await addDoc(CommentCollectionRef, {
     author: post.author,
