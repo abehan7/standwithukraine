@@ -22,15 +22,6 @@ export const getComments = async () => {
   });
 };
 
-// export const getComments2 = async () => {
-
-//   set(ref(db, 'users/' + userId), {
-//     username: name,
-//     email: email,
-//     profile_picture : imageUrl
-//   });
-// }
-
 export const createComment = async (post) => {
   await addDoc(CommentCollectionRef, {
     author: post.author,
