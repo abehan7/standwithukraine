@@ -17,8 +17,8 @@ const PostContainer = () => {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     const fn = async () => {
-      const comments = await getComments();
-      setPosts(comments);
+      // const comments = await getComments();
+      // setPosts(comments);
     };
     fn();
   }, []);

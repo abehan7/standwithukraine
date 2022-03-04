@@ -1,43 +1,18 @@
+import { getDatabase, ref, onValue, push, update } from "firebase/database";
 import { db } from "../db/firebase-config";
-import {
-  collection,
-  getDocs,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  doc,
-  serverTimestamp,
-} from "firebase/firestore";
-
-const CommentCollectionRef = collection(db, "comments");
-
-export const getComments = async () => {
-  const comments = await getDocs(CommentCollectionRef);
-  return comments.docs.map((comment) => {
-    // console.log(comment.id, comment.data());
-    return {
-      id: comment.id,
-      ...comment.data(),
-    };
-  });
-};
-
-export const createComment = async (post) => {
-  await addDoc(CommentCollectionRef, {
-    author: post.author,
-    message: post.message,
-    date: serverTimestamp(),
-    country: post.country,
-  });
-};
-
-export const deleteComment = async (id) => {
-  const commentDoc = doc(db, "comments", id);
-  await deleteDoc(commentDoc);
-};
-
-export const updateComment = async (id, message) => {
-  const commentDoc = doc(db, "comments", id);
-  const newFields = { message };
-  await updateDoc(commentDoc, newFields);
-};
+const messagesRef = ref(db, "teams/");
+export function writeUserData() {
+  // 새로운 id 생성하기
+  const newMsgID = push(messagesRef).key;
+  // update(ref(db, 'teams/' + ID + '/messages/' + newMsgID), {text: input, user: currentUser.displayName, date: new Date()})
+  const updates = {};
+  // json형식으로 만들어서 updates json에 넣기
+  updates["lastMessage"] = { text: 1, user: 2 };
+  updates["/messages/" + newMsgID] = {
+    text: 1,
+    user: 2,
+    date: new Date(),
+  };
+  // 저db에 저장하기
+  update(ref(db, "teams/"), updates);
+}

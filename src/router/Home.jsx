@@ -7,13 +7,8 @@ import PostContainer from "../components/Post/PostContainer";
 
 import Colors from "../assets/Colors";
 import Comment from "../components/Comment/Comment";
+import { writeUserData } from "../Api";
 
-import {
-  createComment,
-  getComments,
-  getComments2,
-  writeUserData,
-} from "../Api";
 const HomeEl = styled.div`
   display: flex;
 
@@ -65,13 +60,8 @@ const Home = () => {
 
   useEffect(() => {
     const fn = async () => {
-      // await writeUserData();
-      // await getComments2();
-      // console.log(data);
+      await writeUserData("name2", "email2", "imageUrl2");
     };
-
-    // console.log(getUTC());
-    // console.log(new Date(getUTC()));
 
     fn();
   }, []);
@@ -85,15 +75,6 @@ const Home = () => {
     checkIsEmpty(1, text.message.length, "message");
     checkIsEmpty(2, text.author.length, "author");
     checkIsEmpty(3, text.country.length, "country");
-
-    // p === 1 && text.message.length !== 0 && setPage(page + 1);
-    // p === 1 && text.message.length === 0 && alert("Please write a message");
-
-    // p === 2 && text.author.length !== 0 && setPage(page + 1);
-    // p === 2 && text.author.length === 0 && alert("Please write your name");
-
-    // p === 3 && text.country.length !== 0 && setPage(page + 1);
-    // p === 3 && text.country.length === 0 && alert("Please write your country");
   };
   const handleClickBack = () => {
     setPage(page - 1);
@@ -102,9 +83,6 @@ const Home = () => {
   const handleClickSend = async () => {
     setPage(1);
     console.log(text);
-    // const fn = () => {};
-    // (text.country.includes("from") || text.country.includes("From")) && fn();
-    await createComment(text);
     setText({
       message: "",
       author: "",
