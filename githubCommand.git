@@ -1,0 +1,4 @@
+// 원격 브랜치 없애기
+git push origin --delete FB/RT/lesson2
+// 로컬 브랜치 없애기
+git branch -D origin/FB/RT/lesson1
