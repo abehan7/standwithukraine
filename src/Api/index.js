@@ -38,3 +38,17 @@ export const getMessages = () => {
     // console.log(data);
   });
 };
+
+export const addMessage = (text = "new text123", user = "han") => {
+  console.log("addMessage");
+  const messagesRef = ref(db, "teams/messages");
+  const newMsgID = push(messagesRef).key;
+  const updates = {};
+  updates["lastMessage"] = { text, user };
+  updates["/messages/" + newMsgID] = {
+    text,
+    user,
+    date: new Date(),
+  };
+  update(ref(db, "teams/"), updates);
+};

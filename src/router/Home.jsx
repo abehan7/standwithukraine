@@ -7,7 +7,7 @@ import PostContainer from "../components/Post/PostContainer";
 
 import Colors from "../assets/Colors";
 import Comment from "../components/Comment/Comment";
-import { getNewMessage, writeUserData, getMessages } from "../Api";
+import { getNewMessage, writeUserData, getMessages, addMessage } from "../Api";
 
 const HomeEl = styled.div`
   display: flex;
@@ -73,7 +73,8 @@ const Home = () => {
     p === num && length === 0 && alert(`Please ${type} a message`);
   };
 
-  const handleClickNext = (p) => {
+  const handleClickNext = async (p) => {
+    await addMessage();
     checkIsEmpty(1, text.message.length, "message");
     checkIsEmpty(2, text.author.length, "author");
     checkIsEmpty(3, text.country.length, "country");
