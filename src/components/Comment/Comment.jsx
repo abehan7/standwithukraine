@@ -1,8 +1,7 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { IoIosArrowBack } from "react-icons/io";
 
-import { HomeContext } from "../../router/Home";
 import Colors from "../../assets/Colors";
 
 export const CommentEl = styled.div`
@@ -21,8 +20,6 @@ export const CommentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
-  /* border: 1px solid #e9ecef; */
 `;
 export const Message = styled.input`
   width: 100%;
@@ -46,10 +43,22 @@ export const IconWrapper = styled.div`
   align-items: center;
   flex: 1.3;
   height: 100%;
+
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
 `;
 
 export const Icon = styled.span`
   cursor: pointer;
+
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
 `;
 
 const BackIconWrapper = styled(IconWrapper)`
