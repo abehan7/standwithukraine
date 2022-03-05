@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { IoIosArrowBack } from "react-icons/io";
-
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { BiPaperPlane } from "react-icons/bi";
 import Colors from "../../assets/Colors";
 
 export const CommentEl = styled.div`
@@ -72,6 +72,10 @@ const BackIconWrapper = styled(IconWrapper)`
   }
 `;
 
+const ForwardIconWrapper = styled(BackIconWrapper)`
+  justify-content: flex-end;
+`;
+
 const IconContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -98,6 +102,7 @@ const Comment = ({
   type,
   name,
   index,
+  page,
 }) => {
   return (
     <CommentEl>
@@ -114,7 +119,11 @@ const Comment = ({
           {type === "both" && (
             <LeftIcon onClick={onClickBack} iconName={leftIconName} />
           )}
-          <RightIcon onClick={onClickForward} iconName={rightIconName} />
+          <RightIcon
+            onClick={onClickForward}
+            iconName={rightIconName}
+            page={page}
+          />
         </IconContainer>
         <Index>{index}</Index>
       </CommentWrapper>
@@ -122,42 +131,21 @@ const Comment = ({
   );
 };
 
-const RightIcon = ({ onClick, iconName }) => {
-  const onDragStart = () => {
-    return false;
-  };
-  const onContextMenu = () => {
-    return false;
-  };
-
+const RightIcon = ({ onClick, iconName, page }) => {
   return (
-    <IconWrapper onDragStart={onDragStart} onContextMenu={onContextMenu}>
-      <Icon
-        onClick={onClick}
-        onDragStart={onDragStart}
-        onContextMenu={onContextMenu}
-      >
-        {iconName}
+    <ForwardIconWrapper>
+      <Icon onClick={onClick}>
+        {page !== 3 && <IoIosArrowForward />}
+        {page === 3 && <BiPaperPlane />}
       </Icon>
-    </IconWrapper>
+    </ForwardIconWrapper>
   );
 };
 
 const LeftIcon = ({ onClick, iconName = "back" }) => {
-  const onDragStart = () => {
-    return false;
-  };
-  const onContextMenu = () => {
-    return false;
-  };
-
   return (
-    <BackIconWrapper onDragStart={onDragStart} onContextMenu={onContextMenu}>
-      <Icon
-        onClick={onClick}
-        onDragStart={onDragStart}
-        onContextMenu={onContextMenu}
-      >
+    <BackIconWrapper>
+      <Icon onClick={onClick}>
         <IoIosArrowBack />
       </Icon>
     </BackIconWrapper>
