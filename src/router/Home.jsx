@@ -10,6 +10,7 @@ import Comment from "../components/Comment/Comment";
 
 import { fetchComment } from "../Api";
 import Alert from "../components/Modal/Alert";
+import { useComment } from "../contexts/CommentContext";
 const HomeEl = styled.div`
   display: flex;
 
@@ -51,17 +52,20 @@ const Home = () => {
     author: "",
     country: "",
   });
+
   const [modalOption, setModalOption] = useState({
     isOpen: false,
     message: "message",
     type: "",
   });
 
+  const { addComment } = useComment();
+
   const fetchModal = (message, type) => {
     setModalOption({ isOpen: true, message, type });
 
     const timer = setTimeout(() => {
-      setModalOption({ isOpen: false, message, type: "" });
+      setModalOption({ isOpen: false, message, type });
     }, 1000);
 
     return () => timer.clearTimeout();
@@ -76,16 +80,8 @@ const Home = () => {
     checkIsEmpty(p, 1, text.message.length, "please write a message");
     checkIsEmpty(p, 2, text.author.length, "please write your name");
     checkIsEmpty(p, 3, text.country.length, "please write country");
-
-    // p === 1 && text.message.length !== 0 && setPage(page + 1);
-    // p === 1 && text.message.length === 0 && alert("Please write a message");
-
-    // p === 2 && text.author.length !== 0 && setPage(page + 1);
-    // p === 2 && text.author.length === 0 && alert("Please write your name");
-
-    // p === 3 && text.country.length !== 0 && setPage(page + 1);
-    // p === 3 && text.country.length === 0 && alert("Please write your country");
   };
+
   const handleClickBack = () => {
     setPage(page - 1);
   };
@@ -95,7 +91,9 @@ const Home = () => {
       fetchModal("Your comment has been sent!", "success");
       setPage(1);
       console.log(text);
-      await fetchComment(text);
+      const rdkey = Math.floor(Math.random() * 100000000000000);
+      addComment({ ...text, date: "now", id: rdkey });
+      fetchComment(text);
       setText({
         message: "",
         author: "",

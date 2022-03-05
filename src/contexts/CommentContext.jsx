@@ -9,6 +9,10 @@ export const CommentProvider = ({ children }) => {
   const [comments, setComments] = useState();
   const [loading, setLoading] = useState(true);
 
+  const addComment = (comment) => {
+    setComments([comment, ...comments]);
+  };
+
   useEffect(() => {
     const fn = async () => {
       const data = await getComments();
@@ -22,7 +26,7 @@ export const CommentProvider = ({ children }) => {
     comments && setLoading(false);
   }, [comments]);
 
-  const value = { comments, loading };
+  const value = { comments, loading, addComment };
 
   return (
     <CommentContext.Provider value={value}>{children}</CommentContext.Provider>
