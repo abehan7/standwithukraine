@@ -123,17 +123,41 @@ const Comment = ({
 };
 
 const RightIcon = ({ onClick, iconName }) => {
+  const onDragStart = () => {
+    return false;
+  };
+  const onContextMenu = () => {
+    return false;
+  };
+
   return (
-    <IconWrapper>
-      <Icon onClick={onClick}>{iconName}</Icon>
+    <IconWrapper onDragStart={onDragStart} onContextMenu={onContextMenu}>
+      <Icon
+        onClick={onClick}
+        onDragStart={onDragStart}
+        onContextMenu={onContextMenu}
+      >
+        {iconName}
+      </Icon>
     </IconWrapper>
   );
 };
 
 const LeftIcon = ({ onClick, iconName = "back" }) => {
+  const onDragStart = () => {
+    return false;
+  };
+  const onContextMenu = () => {
+    return false;
+  };
+
   return (
-    <BackIconWrapper>
-      <Icon onClick={onClick}>
+    <BackIconWrapper onDragStart={onDragStart} onContextMenu={onContextMenu}>
+      <Icon
+        onClick={onClick}
+        onDragStart={onDragStart}
+        onContextMenu={onContextMenu}
+      >
         <IoIosArrowBack />
       </Icon>
     </BackIconWrapper>
