@@ -5,17 +5,12 @@ import {
   getDocs,
   addDoc,
   serverTimestamp,
-  limitToLast,
   query,
-  collectionGroup,
-  where,
   orderBy,
-  limit,
 } from "firebase/firestore";
 
 const CommentCollectionRef = collection(db, "comments");
 const modelsRef = collection(db, "comments");
-const Comments = query(collectionGroup(db, "comments"));
 
 const qry = query(modelsRef, orderBy("date", "desc"));
 // const qry = query(modelsRef, orderBy("date", "desc"), limit(20));

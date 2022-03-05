@@ -1,9 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { IoChatbubbleOutline } from "react-icons/io5";
-import { AiOutlineHeart } from "react-icons/ai";
-
-import Colors from "../../assets/Colors";
 
 import { useComment } from "../../contexts/CommentContext";
 const IndicatorEl = styled.div`
@@ -12,7 +9,6 @@ const IndicatorEl = styled.div`
   padding: 0.9rem 1.7rem;
   gap: 1rem;
   position: relative;
-  /* color: ${Colors.Ash}; */
 `;
 const Icon = styled.div`
   position: relative;
@@ -24,8 +20,6 @@ const Icon = styled.div`
   align-items: center;
   font-size: 1.1rem;
   font-weight: 800;
-
-  /* cursor: pointer */
 `;
 const IconWrapper = styled.div`
   display: flex;

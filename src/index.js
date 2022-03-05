@@ -4,7 +4,7 @@ import App from "./components/App";
 import { createGlobalStyle } from "styled-components";
 import Colors from "./assets/Colors";
 import Fonts from "./assets/Fonts";
-import CommentContext, { CommentProvider } from "./contexts/CommentContext";
+import { CommentProvider } from "./contexts/CommentContext";
 const GlobalStyle = createGlobalStyle`
 
   body{

@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { getComments } from "../../Api";
-import Colors from "../../assets/Colors";
 import { useComment } from "../../contexts/CommentContext";
 
 import { getDate } from "../../Hooks/getDate";
@@ -15,15 +13,6 @@ const PostContainerEl = styled.div`
   overflow-y: scroll;
   align-items: center;
   padding-bottom: 2rem;
-`;
-
-const Loading = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: ${Colors.Ash};
 `;
 
 const PostContainer = () => {

@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { BiPaperPlane } from "react-icons/bi";
-import Colors from "../../assets/Colors";
 
 export const CommentEl = styled.div`
   height: 80px;
