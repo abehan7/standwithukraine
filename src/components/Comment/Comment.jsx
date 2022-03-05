@@ -5,7 +5,7 @@ import { BiPaperPlane } from "react-icons/bi";
 import Colors from "../../assets/Colors";
 
 export const CommentEl = styled.div`
-  height: 70px;
+  height: 80px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -35,7 +35,6 @@ export const Message = styled.input`
 `;
 
 export const IconWrapper = styled.div`
-  font-size: 1.1rem;
   font-weight: 800;
   display: flex;
   justify-content: flex-end;
@@ -53,6 +52,8 @@ export const IconWrapper = styled.div`
 
 export const Icon = styled.span`
   cursor: pointer;
+  font-size: 2rem;
+  padding: 0.7rem 0;
 
   -ms-user-select: none;
   -moz-user-select: -moz-none;
@@ -64,7 +65,6 @@ export const Icon = styled.span`
 const BackIconWrapper = styled(IconWrapper)`
   justify-content: flex-start;
   padding-left: 0.5rem;
-  font-size: 1.3rem;
   span {
     display: flex;
     justify-content: center;
@@ -89,7 +89,16 @@ const Index = styled.div`
   font-size: 1rem;
   font-weight: 800;
   padding: 0.41rem;
-  color: ${Colors.Primary};
+  background-color: #fc1977;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  color: #fff;
+  opacity: 0.8;
+  /* color: #fc1977; */
 `;
 const Comment = ({
   onClickBack,
