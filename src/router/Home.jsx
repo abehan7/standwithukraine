@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Fonts from "../assets/Fonts";
 import Indicator from "../components/Indicator/Indicator";
 import PostContainer from "../components/Post/PostContainer";
-
+import { debounce } from "lodash";
 import Colors from "../assets/Colors";
 import Comment from "../components/Comment/Comment";
 
@@ -45,13 +45,13 @@ const Bottom = styled.div`
 
 export const HomeContext = createContext(null);
 
+const debounceFn = debounce((fn) => {
+  fn();
+}, 300);
+
 const Home = () => {
   const [page, setPage] = useState(1);
-  const [text, setText] = useState({
-    message: "",
-    author: "",
-    country: "",
-  });
+  const [text, setText] = useState({ message: "", author: "", country: "" });
 
   const [modalOption, setModalOption] = useState({
     isOpen: false,
@@ -62,13 +62,16 @@ const Home = () => {
   const { addComment } = useComment();
 
   const fetchModal = (message, type) => {
+    debounceFn.cancel();
     setModalOption({ isOpen: true, message, type });
 
-    const timer = setTimeout(() => {
-      setModalOption({ isOpen: false, message, type });
-    }, 1000);
+    const fn = () => {
+      const timer = setTimeout(() => {
+        setModalOption({ isOpen: false, message, type });
+      }, 1000);
+    };
 
-    return () => timer.clearTimeout();
+    debounceFn(fn);
   };
 
   const checkIsEmpty = (p, num, length, message) => {

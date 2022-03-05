@@ -12,7 +12,6 @@ export const CommentEl = styled.div`
   margin-bottom: 1rem;
 `;
 export const CommentWrapper = styled.div`
-  /* background-color: #fff; */
   border-radius: 0.3rem;
   width: 90%;
   height: 100%;
@@ -97,7 +96,7 @@ const Index = styled.div`
   border-radius: 6px;
   color: #fff;
   opacity: 0.8;
-  /* color: #fc1977; */
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 `;
 const Comment = ({
   onClickBack,
