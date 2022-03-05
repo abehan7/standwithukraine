@@ -86,16 +86,16 @@ const Index = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 800;
   padding: 0.41rem;
   background-color: #fc1977;
-  width: 2rem;
-  height: 2rem;
+  width: 1.4rem;
+  height: 1.6rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 6px;
   color: #fff;
   opacity: 0.8;
   /* color: #fc1977; */
