@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
 import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "@firebase/firestore";
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -15,4 +15,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Get a reference to the database service
-export const db = getDatabase(app);
+export const db = getFirestore(app);

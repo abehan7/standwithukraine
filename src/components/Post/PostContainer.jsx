@@ -26,12 +26,13 @@ const PostContainer = () => {
     <PostContainerEl>
       {comments?.map((post) => {
         const data = getDate(post);
+        // const data = "";
 
         return (
           <Post
             msg={post?.message}
             author={post?.author}
-            key={post?.key}
+            key={post?.id}
             country={post?.country}
             date={data}
           />

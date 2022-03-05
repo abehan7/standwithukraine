@@ -1,42 +1,47 @@
 import { db } from "../db/firebase-config";
 
-import { ref, onValue, push, update, serverTimestamp } from "firebase/database";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  serverTimestamp,
+  limitToLast,
+  query,
+  collectionGroup,
+  where,
+  orderBy,
+  limit,
+} from "firebase/firestore";
 
-export const getComments = (setState) => {
-  // console.log("getComments");
-  const commentsRef = ref(db, "comments/");
-  onValue(commentsRef, (snapshot) => {
-    const _data = [];
-    snapshot.forEach((childSnapshot) => {
-      _data.push({ key: childSnapshot.key, ...childSnapshot.val() });
-    });
-    _data.sort((a, b) => new Date(b.date) - new Date(a.date));
-    snapshot.exists() && setState(_data);
+const CommentCollectionRef = collection(db, "comments");
+const modelsRef = collection(db, "comments");
+const Comments = query(collectionGroup(db, "comments"));
+
+const qry = query(modelsRef, orderBy("date", "desc"), limit(1));
+// https://stackoverflow.com/questions/69062808/firebase-9-getdocsqry-not-returning
+// 여기에 나와있음
+export const getComments = async () => {
+  console.log("getComments");
+
+  const comments = await getDocs(qry);
+  console.log("comments: ", comments);
+  return comments.docs.map((comment) => {
+    return {
+      id: comment.id,
+      ...comment.data(),
+    };
   });
 };
 
-export const fetchComment = ({ message, author, country }) => {
+export const fetchComment = async ({ message, author, country }) => {
   console.log("fetchComment");
-  const commentsRef = ref(db, "comments");
-  const newCmtID = push(commentsRef).key;
-  const updates = {};
-
-  updates[newCmtID] = {
+  await addDoc(CommentCollectionRef, {
     author,
     country,
     message,
     date: serverTimestamp(),
-  };
-
-  update(ref(db, "comments/"), updates);
+  });
 };
+
 export const deleteComment = () => {};
 export const updateComment = () => {};
-
-export function getNewMessage(newData) {
-  const starCountRef = ref(db, "teams/messages");
-  onValue(starCountRef, (snapshot) => {
-    const data = snapshot.val();
-    console.log(data);
-  });
-}
