@@ -16,7 +16,7 @@ export const CommentProvider = ({ children }) => {
   useEffect(() => {
     const fn = async () => {
       const data = await getComments();
-      console.log(data);
+      // console.log(data);
       setComments(data);
     };
     fn();

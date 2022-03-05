@@ -1,6 +1,6 @@
 export const getDate = (post) => {
   const timestamp = `${new Date(post?.date?.seconds * 1000)}`;
-  console.log(timestamp);
+  // console.log(timestamp);
   const dateItems = timestamp?.split(" ");
   const timeItems = dateItems[4]?.split(":");
   const time = `${timeItems[0]}:${timeItems[1]}`;
