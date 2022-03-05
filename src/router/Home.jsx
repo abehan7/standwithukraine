@@ -8,35 +8,26 @@ import PostContainer from "../components/Post/PostContainer";
 import Colors from "../assets/Colors";
 import Comment from "../components/Comment/Comment";
 
-import {
-  createComment,
-  getComments,
-  getComments2,
-  writeUserData,
-} from "../Api";
+import { fetchComment } from "../Api";
+import Alert from "../components/Modal/Alert";
 const HomeEl = styled.div`
   display: flex;
 
   flex-direction: column;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(
-    to bottom,
-    ${Colors.Primary} 0%,
-    ${Colors.Primary} 50%,
-    ${Colors.Secondary} 50%,
-    ${Colors.Secondary} 100%
-  );
+  background-color: #f7f8fa;
 `;
 
 export const SubTitle = styled.span`
-  color: #fff;
+  color: ${Colors.Secondary};
   ${Fonts.Primary}
 `;
 
 export const Title = styled.h1`
   ${Fonts.Primary}
-  display:flex;
+  color: ${Colors.Primary};
+  display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 3rem;
@@ -60,31 +51,31 @@ const Home = () => {
     author: "",
     country: "",
   });
+  const [modalOption, setModalOption] = useState({
+    isOpen: false,
+    message: "message",
+    type: "",
+  });
 
-  const [comments, setComments] = useState([]);
+  const fetchModal = (message, type) => {
+    setModalOption({ isOpen: true, message, type });
 
-  useEffect(() => {
-    const fn = async () => {
-      // await writeUserData();
-      // await getComments2();
-      // console.log(data);
-    };
+    const timer = setTimeout(() => {
+      setModalOption({ isOpen: false, message, type: "" });
+    }, 1000);
 
-    // console.log(getUTC());
-    // console.log(new Date(getUTC()));
+    return () => timer.clearTimeout();
+  };
 
-    fn();
-  }, []);
-
-  const checkIsEmpty = ({ p, num, length, type }) => {
+  const checkIsEmpty = (p, num, length, message) => {
     p === num && length !== 0 && setPage(page + 1);
-    p === num && length === 0 && alert(`Please ${type} a message`);
+    p === num && length === 0 && fetchModal(message, "process");
   };
 
   const handleClickNext = (p) => {
-    checkIsEmpty(1, text.message.length, "message");
-    checkIsEmpty(2, text.author.length, "author");
-    checkIsEmpty(3, text.country.length, "country");
+    checkIsEmpty(p, 1, text.message.length, "please write a message");
+    checkIsEmpty(p, 2, text.author.length, "please write your name");
+    checkIsEmpty(p, 3, text.country.length, "please write country");
 
     // p === 1 && text.message.length !== 0 && setPage(page + 1);
     // p === 1 && text.message.length === 0 && alert("Please write a message");
@@ -100,16 +91,22 @@ const Home = () => {
   };
 
   const handleClickSend = async () => {
-    setPage(1);
-    console.log(text);
+    const fn = async () => {
+      fetchModal("Your comment has been sent!", "success");
+      setPage(1);
+      console.log(text);
+      await fetchComment(text);
+      setText({
+        message: "",
+        author: "",
+        country: "",
+      });
+    };
+    text.country.length === 0 &&
+      fetchModal("please write your country", "process");
+    text.country.length !== 0 && fn();
     // const fn = () => {};
     // (text.country.includes("from") || text.country.includes("From")) && fn();
-    await createComment(text);
-    setText({
-      message: "",
-      author: "",
-      country: "",
-    });
   };
 
   const onChange = (e) => {
@@ -118,10 +115,18 @@ const Home = () => {
 
   return (
     <HomeEl>
+      <Alert
+        message={modalOption.message}
+        isOpen={modalOption.isOpen}
+        type={modalOption.type}
+      />
       <Title>
         #STAND<SubTitle>WITH</SubTitle>UKRAINE
       </Title>
       <Indicator />
+      {/* <br />
+      <br />
+      <br /> */}
       {page === 1 && (
         <Comment
           onClickBack={() => {}}

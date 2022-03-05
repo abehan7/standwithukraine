@@ -4,6 +4,7 @@ import Modal from "../router/Modal";
 import Writing from "../router/Writing";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import PostDetail from "../router/PostDetail";
+import CommentContext from "../contexts/CommentContext";
 function App() {
   return (
     <Router>

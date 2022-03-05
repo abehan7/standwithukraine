@@ -1,42 +1,42 @@
 import { db } from "../db/firebase-config";
-import {
-  collection,
-  getDocs,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  doc,
-  serverTimestamp,
-} from "firebase/firestore";
 
-const CommentCollectionRef = collection(db, "comments");
+import { ref, onValue, push, update, serverTimestamp } from "firebase/database";
 
-export const getComments = async () => {
-  const comments = await getDocs(CommentCollectionRef);
-  return comments.docs.map((comment) => {
-    return {
-      id: comment.id,
-      ...comment.data(),
-    };
+export const getComments = (setState) => {
+  // console.log("getComments");
+  const commentsRef = ref(db, "comments/");
+  onValue(commentsRef, (snapshot) => {
+    const _data = [];
+    snapshot.forEach((childSnapshot) => {
+      _data.push({ key: childSnapshot.key, ...childSnapshot.val() });
+    });
+    _data.sort((a, b) => new Date(b.date) - new Date(a.date));
+    snapshot.exists() && setState(_data);
   });
 };
 
-export const createComment = async (post) => {
-  await addDoc(CommentCollectionRef, {
-    author: post.author,
-    message: post.message,
+export const fetchComment = ({ message, author, country }) => {
+  console.log("fetchComment");
+  const commentsRef = ref(db, "comments");
+  const newCmtID = push(commentsRef).key;
+  const updates = {};
+
+  updates[newCmtID] = {
+    author,
+    country,
+    message,
     date: serverTimestamp(),
-    country: post.country,
+  };
+
+  update(ref(db, "comments/"), updates);
+};
+export const deleteComment = () => {};
+export const updateComment = () => {};
+
+export function getNewMessage(newData) {
+  const starCountRef = ref(db, "teams/messages");
+  onValue(starCountRef, (snapshot) => {
+    const data = snapshot.val();
+    console.log(data);
   });
-};
-
-export const deleteComment = async (id) => {
-  const commentDoc = doc(db, "comments", id);
-  await deleteDoc(commentDoc);
-};
-
-export const updateComment = async (id, message) => {
-  const commentDoc = doc(db, "comments", id);
-  const newFields = { message };
-  await updateDoc(commentDoc, newFields);
-};
+}

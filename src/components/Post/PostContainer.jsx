@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { getComments } from "../../Api";
+import { useComment } from "../../contexts/CommentContext";
+
 import { getDate } from "../../Hooks/getDate";
 import Post from "./Post";
 const PostContainerEl = styled.div`
@@ -14,27 +16,24 @@ const PostContainerEl = styled.div`
 `;
 
 const PostContainer = () => {
-  const [posts, setPosts] = useState([]);
+  const { comments } = useComment();
+
   useEffect(() => {
-    const fn = async () => {
-      const comments = await getComments();
-      setPosts(comments);
-    };
-    fn();
-  }, []);
+    console.log();
+  }, [comments]);
+
   return (
     <PostContainerEl>
-      {posts.map((post, index) => {
-        const { day, month, date, year, time } = getDate(post);
-        const dateEl = `${day}  ${month}  ${date}  ${year}  ${time}`;
+      {comments?.map((post) => {
+        const data = getDate(post);
 
         return (
           <Post
             msg={post?.message}
             author={post?.author}
-            key={post?.id}
+            key={post?.key}
             country={post?.country}
-            date={dateEl}
+            date={data}
           />
         );
       })}
@@ -42,4 +41,4 @@ const PostContainer = () => {
   );
 };
 
-export default PostContainer;
+export default React.memo(PostContainer);

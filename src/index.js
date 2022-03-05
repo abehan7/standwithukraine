@@ -4,6 +4,7 @@ import App from "./components/App";
 import { createGlobalStyle } from "styled-components";
 import Colors from "./assets/Colors";
 import Fonts from "./assets/Fonts";
+import CommentContext, { CommentProvider } from "./contexts/CommentContext";
 const GlobalStyle = createGlobalStyle`
 
   body{
@@ -29,9 +30,9 @@ a:visisted{
 `;
 
 ReactDOM.render(
-  <>
+  <CommentProvider>
     <GlobalStyle />
     <App />
-  </>,
+  </CommentProvider>,
   document.getElementById("root")
 );

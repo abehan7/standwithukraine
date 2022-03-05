@@ -14,13 +14,15 @@ export const CommentEl = styled.div`
   margin-bottom: 1rem;
 `;
 export const CommentWrapper = styled.div`
-  background-color: #fff;
+  /* background-color: #fff; */
   border-radius: 0.3rem;
   width: 90%;
   height: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
+  /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
+  /* border: 1px solid #e9ecef; */
 `;
 export const Message = styled.input`
   width: 100%;

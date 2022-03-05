@@ -9,8 +9,8 @@ const PostEl = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
-    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border: 1px solid #e9ecef;
 `;
 const MsgWrapper = styled.div`
   overflow: hidden;
@@ -19,7 +19,6 @@ const MsgWrapper = styled.div`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow-wrap: break-word;
-  /* font-size: 1.1rem; */
 `;
 
 const Author = styled.span``;
