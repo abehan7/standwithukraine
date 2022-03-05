@@ -17,7 +17,7 @@ const CommentCollectionRef = collection(db, "comments");
 const modelsRef = collection(db, "comments");
 const Comments = query(collectionGroup(db, "comments"));
 
-const qry = query(modelsRef, orderBy("date", "desc"), limit(1));
+const qry = query(modelsRef, orderBy("date", "desc"), limit(20));
 // https://stackoverflow.com/questions/69062808/firebase-9-getdocsqry-not-returning
 // 여기에 나와있음
 export const getComments = async () => {
