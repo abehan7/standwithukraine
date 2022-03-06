@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { BiPaperPlane } from "react-icons/bi";
+import Colors from "../../assets/Colors";
 
 export const CommentEl = styled.div`
   height: 80px;
@@ -87,14 +88,16 @@ const Index = styled.div`
   font-size: 0.8rem;
   font-weight: 800;
   padding: 0.41rem;
-  background-color: #fc1977;
   width: 1.4rem;
   height: 1.6rem;
+  font-family: "Roboto", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 6px;
-  color: #fff;
+
+  /* background-color: #fc1977;  */
+
   opacity: 0.8;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 `;
