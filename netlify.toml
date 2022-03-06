@@ -1,6 +1,6 @@
 // netlify.toml
 [build]
-  command = "npm run build"
+  command = "CI= yarn run build"
   publish = "build"
 
 [context.production.environment]
